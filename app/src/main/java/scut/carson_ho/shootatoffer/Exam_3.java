@@ -4,7 +4,7 @@ package scut.carson_ho.shootatoffer;
  * Created by Carson_Ho on 17/10/18.
  */
 
-public class Exam_2 {
+public class Exam_3 {
 
     /**
      * 找出数组中重复数字（可修改数组）
