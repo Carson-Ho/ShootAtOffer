@@ -1,4 +1,4 @@
-package scut.carson_ho.shootatoffer;
+package scut.carson_ho.shootatoffer.Exam_6;
 
 import java.util.Stack;
 
@@ -9,7 +9,7 @@ import java.util.Stack;
 public class Exam_6 {
 
     /**
-     * 通过思路1：栈结构
+     * 思路1：栈结构
      * @param head = 头结点
      */
     private static void reversePrint_Stack(Node head){
@@ -28,7 +28,7 @@ public class Exam_6 {
         }
         // 4. 遍历链表完毕后，从栈顶开始输出结点的值
         while(!stack.isEmpty()){
-            System.out.print(stack.pop().value+" ");
+            System.out.print(stack.pop().data+" ");
         }
 
     }
@@ -37,13 +37,15 @@ public class Exam_6 {
      * 结点结构
      */
     class Node {
-        int value;
+        int data;
         Node next;
 
     }
 
+
+
     /**
-     * 通过思路2：递归
+     * 思路2：递归
      * @param head = 头结点
      */
 
@@ -54,8 +56,9 @@ public class Exam_6 {
         else{
             // 2. 遍历链表：每访问1个结点，先递归输出它后面的结点，再输出该结点本身
             reversePrint_Rec(head.next);
-            System.out.print(head.value+" ");
+            System.out.print(head.data+" ");
         }
 
     }
+
 }
