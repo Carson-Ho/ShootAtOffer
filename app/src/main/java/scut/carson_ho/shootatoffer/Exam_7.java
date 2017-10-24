@@ -64,7 +64,7 @@ public class Exam_7 {
 
     }
 
-    //建立二叉树节点类
+    // 建立二叉树节点类
     static class TreeNode {
         int val;
         TreeNode left;
