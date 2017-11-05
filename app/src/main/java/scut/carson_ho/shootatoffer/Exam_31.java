@@ -34,14 +34,13 @@ public class Exam_31 {
         int pushSeqIndex=0,popSeqIndex=0;
 
         // 创建1个栈 用于辅助判断
-        // 栈先压入压栈序列的第1个元素
         Stack<Integer> stack = new Stack<>();
 
         // 若指向弹出序列的指针已到序列结尾，则代表被测序列 = 弹出序列
         // 即，循环跳出
         while (popSeqIndex < popSeq.length){
 
-            // 若栈顶元素 ≠ 弹出序列指针指向元素时，入栈 压栈序列指针指向的元素
+            // 若栈顶元素 ≠ 弹出序列指针指向元素时，入栈 压栈序列指针指向的元素，指针后移1位
             if(stack.isEmpty()||stack.peek()!=popSeq[popSeqIndex]) {
                 if(pushSeqIndex < pushSeq.length ) {
                     stack.push(pushSeq[pushSeqIndex]);
