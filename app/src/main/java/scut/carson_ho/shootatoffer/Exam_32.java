@@ -2,6 +2,7 @@ package scut.carson_ho.shootatoffer;
 
 import java.util.LinkedList;
 import java.util.Queue;
+import java.util.Stack;
 
 /**
  * Created by Carson_Ho on 17/11/6.
@@ -17,27 +18,65 @@ public class Exam_32 {
     public static void main(String[] args){
         // 功能测试
         System.out.println("功能测试");
-        //            8
-        //          /   \
-        //         6     10
-        //       /  \   / \
-        //      5    7 9   11
-        TreeNode<Integer> root = new TreeNode<Integer>(8);
-        root.leftNode = new TreeNode<Integer>(6);
-        root.rightNode = new TreeNode<Integer>(10);
-        root.leftNode.leftNode = new TreeNode<Integer>(5);
-        root.leftNode.rightNode = new TreeNode<Integer>(7);
-        root.rightNode.leftNode = new TreeNode<Integer>(9);
-        root.rightNode.rightNode = new TreeNode<Integer>(11);
-        levelTravel2(root);
+        //             1
+        //          /    \
+        //         2      3
+        //       /  \    / \
+        //      4    5 6   7
+        //     / \  / \/ \ / \
+        //   8    91011121314 15
+        TreeNode<Integer> root = new TreeNode<Integer>(1);
+
+        root.leftNode = new TreeNode<Integer>(2);
+        root.rightNode = new TreeNode<Integer>(3);
+
+        root.leftNode.leftNode = new TreeNode<Integer>(4);
+        root.leftNode.rightNode = new TreeNode<Integer>(5);
+        root.rightNode.leftNode = new TreeNode<Integer>(6);
+        root.rightNode.rightNode = new TreeNode<Integer>(7);
+
+        root.leftNode.leftNode.leftNode = new TreeNode<Integer>(8);
+        root.leftNode.leftNode.rightNode = new TreeNode<Integer>(9);
+
+        root.leftNode.rightNode.leftNode = new TreeNode<Integer>(10);
+        root.leftNode.rightNode.rightNode = new TreeNode<Integer>(11);
+
+        root.rightNode.leftNode.leftNode = new TreeNode<Integer>(12);
+        root.rightNode.leftNode.rightNode = new TreeNode<Integer>(13);
+
+        root.rightNode.rightNode.leftNode = new TreeNode<Integer>(14);
+        root.rightNode.rightNode.rightNode = new TreeNode<Integer>(15);
+        levelTravel3(root);
 
         // 特殊输入测试：头节点为空、只有1个节点的二叉树
         System.out.println("特殊输入测试");
-        levelTravel2(null);
+        levelTravel3(null);
 
         TreeNode<Integer> root1 = new TreeNode<Integer>(8);
-        levelTravel2(root1);
+        levelTravel3(root1);
 
+//        // 功能测试
+//        System.out.println("功能测试");
+//        //            8
+//        //          /   \
+//        //         6     10
+//        //       /  \   / \
+//        //      5    7 9   11
+//        TreeNode<Integer> root = new TreeNode<Integer>(8);
+//        root.leftNode = new TreeNode<Integer>(6);
+//        root.rightNode = new TreeNode<Integer>(10);
+//        root.leftNode.leftNode = new TreeNode<Integer>(5);
+//        root.leftNode.rightNode = new TreeNode<Integer>(7);
+//        root.rightNode.leftNode = new TreeNode<Integer>(9);
+//        root.rightNode.rightNode = new TreeNode<Integer>(11);
+//        levelTravel2(root);
+//
+//        // 特殊输入测试：头节点为空、只有1个节点的二叉树
+//        System.out.println("特殊输入测试");
+//        levelTravel2(null);
+//
+//        TreeNode<Integer> root1 = new TreeNode<Integer>(8);
+//        levelTravel2(root1);
     }
 
     /**
@@ -144,4 +183,61 @@ public class Exam_32 {
 
         }
     }
+
+
+    /**
+     * 内容：之字形分行打印
+     * 方式：采用2个栈
+     */
+    public static void levelTravel3(TreeNode<Integer> root){
+        // 1. 判断当前结点是否为空；若是，则返回空操作
+        if(root==null) {
+            System.out.println("输入的头节点为空");
+            return;
+        }
+
+        // 2. 定义2个栈
+        // 栈1：打印的层数 = 奇数、入栈顺序 = 右子节点 -> 左子节点
+        // 栈2：打印的层数 = 偶数、入栈顺序 = 左子节点 -> 右子节点
+        Stack<TreeNode<Integer>> stack1 = new Stack<>();
+        Stack<TreeNode<Integer>> stack2 = new Stack<>();
+
+
+        TreeNode<Integer> temp;
+        // 栈1入栈根节点 = 第1层
+        stack1.push(root);
+
+        while(!stack1.isEmpty() || !stack2.isEmpty()){
+
+            if(!stack1.isEmpty()) {
+                while (!stack1.isEmpty()) {
+                    // 出栈队首元素 & 输出
+                    temp = stack1.pop();
+                    System.out.print(temp.val);
+                    System.out.print(' ');
+                    // 保存下1层节点
+                    // 因为本层 = 奇数，那么下层 = 偶数，即保存到栈2，入栈顺序 = 左子节点 -> 右子节点
+                    if (temp.leftNode != null)
+                        stack2.push(temp.leftNode);
+                    if (temp.rightNode != null)
+                        stack2.push(temp.rightNode);
+                }
+            }
+            else {
+                while (!stack2.isEmpty()) {
+                    temp = stack2.pop();
+                    System.out.print(temp.val);
+                    System.out.print(' ');
+                    // 保存下1层节点
+                    // 因为本层 = 偶数，那么下层 = 奇数，即保存到栈1，入栈顺序 = 右子节点 -> 左子节点
+                    if (temp.rightNode != null)
+                        stack1.push(temp.rightNode);
+                    if (temp.leftNode != null)
+                        stack1.push(temp.leftNode);
+                }
+            }
+            System.out.println();
+        }
+    }
+
 }
