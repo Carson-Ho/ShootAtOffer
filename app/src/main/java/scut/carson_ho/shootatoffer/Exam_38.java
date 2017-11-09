@@ -10,6 +10,9 @@ import java.util.List;
 
 public class Exam_38 {
 
+    /**
+     * 测试用例
+     */
     public static void main(String[] args) {
 
         // 功能测试1：无重复字符 字符串
@@ -49,7 +52,7 @@ public class Exam_38 {
             System.out.println("输入的头节点为空");
             return null;
         }
-        char[] chars = strs.toCharArray();
+        char[] chars = strs.toCharArray();// 将字符串转换成数组便于处理
         // 2. 创建1链表用于存储排列
         List<char[]> ret = new LinkedList<>();
         // 3. 求出字符串的排列
