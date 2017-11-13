@@ -27,7 +27,6 @@ public class Exam_40 {
         int[] data2 = null;
         System.out.println(GetLeastNumbers_Solution(data2,4));
 
-
     }
 
     /**
