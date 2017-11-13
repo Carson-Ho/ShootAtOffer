@@ -1,15 +1,15 @@
 package scut.carson_ho.shootatoffer;
 
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
+/**
+ * Created by Carson_Ho on 17/11/13.
+ */
 
-public class MainActivity extends AppCompatActivity {
+public class Exam_41Test {
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
+    /**
+     * 测试用例
+     */
+    public static void main(String[] args){
 
         // 测试用例
         // 功能测试
@@ -26,5 +26,7 @@ public class MainActivity extends AppCompatActivity {
         System.out.println("特殊输入测试");
         Exam_41Solution test1 = new Exam_41Solution();
         System.out.print(test1.GetMedian() + "  ");
+
     }
+
 }
