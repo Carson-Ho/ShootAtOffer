@@ -4,7 +4,7 @@ package scut.carson_ho.shootatoffer;
  * Created by Carson_Ho on 17/11/16.
  */
 
-public class Exam_502 {
+public class Exam_50_2 {
 
 
     /**
