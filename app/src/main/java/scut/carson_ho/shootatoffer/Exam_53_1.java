@@ -36,7 +36,9 @@ public class Exam_53_1 {
         if(data == null || data.length == 0)
             return -1;
 
-        int left = 0,right = data.length-1,mid;
+        int left = 0;
+        int right = data.length-1;
+        int mid;
 
         while (left<=right){
 
