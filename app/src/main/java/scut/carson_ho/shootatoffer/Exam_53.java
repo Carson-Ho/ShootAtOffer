@@ -7,6 +7,23 @@ package scut.carson_ho.shootatoffer;
 public class Exam_53 {
 
     /**
+     * 测试用例
+     */
+    public static void main(String[] args){
+        // 功能测试：含查找的数字，出现1次 / 多次、无查找的数字
+        int[] data1 = new int[]{1,2,3,4,5,6,7,8};
+        int[] data2 = new int[]{1,2,3,3,3,3,5,6};
+        System.out.println(getNumberOfK(data1,4));
+        System.out.println(getNumberOfK(data2,3));
+
+        // 特殊输入测试：null、输入的数组只有1个数字
+        System.out.println(getNumberOfK(null,1));
+        int[] data3 = new int[]{1};
+        System.out.println(getNumberOfK(data3,1));
+    }
+
+
+    /**
      * 解题算法
      * @ param array 排序数组
      * @ param k 需统计的数字
@@ -89,15 +106,6 @@ public class Exam_53 {
             return getLastK(array, mid + 1, high, k);
         else
             return mid;
-    }
-
-    public static void main(String[] args){
-        int[] data1 = new int[]{1,2,3,3,3,3,5,6};
-        int[] data2 = new int[]{1,2,3,3,3,3,4,5};
-        int[] data3 = new int[]{3,3,3,3,3,3,3,3};
-        System.out.println(getNumberOfK(data1,4));
-        System.out.println(getNumberOfK(data2,3));
-        System.out.println(getNumberOfK(data3,3));
     }
 
 }
