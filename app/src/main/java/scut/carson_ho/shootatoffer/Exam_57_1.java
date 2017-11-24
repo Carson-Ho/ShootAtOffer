@@ -17,7 +17,6 @@ public class Exam_57_1 {
         // 边界值输入测试：连续序列最小和 = 3
         System.out.println("边界值测试");
         findContinuousSequence(3);
-
     }
 
     /**
