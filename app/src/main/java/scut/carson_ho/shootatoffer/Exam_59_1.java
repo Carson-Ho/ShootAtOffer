@@ -9,6 +9,10 @@ import java.util.LinkedList;
 
 public class Exam_59_1 {
 
+    /**
+     * 测试用例
+     */
+
     public static void main(String[] args) throws Exception {
         // 构造1队列 = { 1,5,4,6,1,2 }
         QueueWithMax queueWithMax1 = new QueueWithMax();
