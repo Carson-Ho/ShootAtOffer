@@ -164,47 +164,59 @@ public class Exam_3 {
      * @return
      */
     private static int answer_NoChangArr(int[] arr){
+
         // 1. 判断输入数据 是否合法
         // 即，判断数组下标是否越界 & 数字 = 1~n 范围
-        if(arr==null||arr.length==0)
+        if(arr==null || arr.length==0)
             return -1;
 
         for (int i = 0; i < arr.length; i++) {
-            if(arr[i]<1||arr[i]>arr.length)
+            if(arr[i]<1 || arr[i] > arr.length)
                 return -1;
         }
 
         int start = 1;
         int end = arr.length-1;
-        while(start<=end){
+
+        while(start <= end){
+
             // 2. 将范围数字分成2部分
             int mid = (end+start)/2;
+
             // 3. 统计区间内的数字出现的次数
             int count = countRange(arr,arr.length-1,start,mid);
+
             // 直到分到该部分只有1个数字 & 统计次数>1次，则找到重复数字，输出
             if(end == start){
                 if(count>1) {
-                    System.out.println("重复的数字：" + start);
+                    System.out.print("重复的数字：");
                     return start;
                 }else
                     break;
             }
+
+            // 若左1半统计的次数 > 该范围内的数字，则继续在该左1半采用二分法
             if(count>(mid-start+1))
                 end = mid;
             else
                 start = mid+1;
         }
-        System.out.println("结束");
+
+        System.out.print("无重复数字");
         return -1;
     }
 
     /**
-     * 统计区间范围内的数字出现的次数
+     * 辅助算法：统计区间范围内的数字出现的次数
      */
     private static int countRange(int[] arr, int n, int start, int end) {
-        if(arr==null||n<=0)
+        // 判断输入数据的合法性
+        if(arr==null || n<=0 )
             return 0;
+
         int count = 0;
+
+        // 统计区间范围内的数字出现的次数
         for (int i = 0; i < arr.length; i++) {
             if(arr[i]>=start&&arr[i]<=end)
                 count++;
@@ -215,26 +227,25 @@ public class Exam_3 {
     /*******************************************/
 
     /**
-     * 执行解题算法
+     * 测试用例
      */
     public static void main(String[] args) {
 
-        // 功能测试1：含1个重复数字
-        int[] src = new int[]{2,1,0,1,4};
-        System.out.println(answer(src));
+        // 功能测试1：数组长度 = 8，含1个重复数字
+        int[] src = new int[]{2,1,5,4,3,2,6,7};
+        System.out.println(answer_NoChangArr(src));
 
-        // 功能测试2：含多个重复数字
-        int[] src1 = new int[]{2,1,0,1,2};
-        System.out.println(answer(src1));
+        // 功能测试2：数组长度 = 8，含多个重复数字
+        int[] src1 = new int[]{2,2,5,4,3,2,6,7};
+        System.out.println(answer_NoChangArr(src1));
 
-        // 功能测试3：不含重复数字
-        int[] src2 = new int[]{2,1,0,3,4};
-        System.out.println(answer(src2));
+        // 功能测试3：数组长度 = 8，不含重复数字
+        int[] src2 = new int[]{0,1,2,3,4,5,6,7};
+        System.out.println(answer_NoChangArr(src2));
 
         // 特殊输入测试：空指针
-        answer(null);
-        int[] src3 = new int[]{2,1,0,3,5};
-        System.out.println(answer(src3));
+        System.out.println(answer_NoChangArr(null));
+
 
     }
 
