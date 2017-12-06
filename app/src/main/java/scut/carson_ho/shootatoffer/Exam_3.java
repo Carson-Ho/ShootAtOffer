@@ -7,45 +7,47 @@ package scut.carson_ho.shootatoffer;
 public class Exam_3 {
 
     /**
-     * 找出数组中重复数字（可修改数组）
+     * 解题算法：找出数组中重复数字（可修改数组）
      * @param arr = 输入数组
      * @return
      */
 
     private static boolean answer(int[] arr){
 
-
         // 1. 判断输入数据 是否合法
         // 即，判断数组下标是否越界 & 数字 = 0~n-1范围
+
+        // 1.1 判断数组下标是否越界
         if(arr == null || arr.length<=0) {
-            System.out.println("输入不合法");
+            System.out.print("输入不合法 ");
             return false;
         }
 
-
+        // 1.2 判断数字 是否在 （0 ~ n-1）范围
         for (int i = 0; i < arr.length; i++) {
-            if (arr[i] < 0 || arr[i] > arr.length) {
-                System.out.println("输入不合法");
+            if (arr[i] < 0 || arr[i] > arr.length-1) {
+                System.out.print("输入不合法 ");
                 return false;
             }
         }
 
-
         // 2. 遍历数组
         for (int i = 0; i < arr.length; i++) {
-            // 3. 比较 下标= i位置的值与该下标本身
 
-            while(arr[i]!=i){
+            // 3. 比较 下标= i位置的值与该下标本身
+            while( arr[i]!=i ){
                 // 若下标= i位置的值 = 下标= 前者值位置的值，即找到重复数字，输出
                 if(arr[i]== arr[arr[i]]){
-                    System.out.println("重复的数字是："+ arr[i]);
-                    break;
-                    //return true;
+                    System.out.print("重复的数字是："+ arr[i] + "");
+
+                    return true;
+                    // 若只需找出任意1个重复数字，则采用return ，即找到重复数字时就直接结束函数
+                    // 采用 break; ，即 找出全部重复的数字
                 }
 
                 else {
                     // 否则，交换位置
-                    // 把后者放在属于它的位置)
+                    // 把后者放在属于它的位置
                     int temp = arr[i];
                     arr[i] = arr[arr[i]];
                     arr[temp] = temp;
@@ -53,8 +55,65 @@ public class Exam_3 {
             }
         }
 
+        System.out.print("不含重复数字 ");
+        return false;
+    }
+
+    /**
+     * 解题算法（已经过牛客网测试）
+     * 找出数组中重复数字（可修改数组）
+     * @param numbers = 输入数组
+     * @param length = 数组长度
+     * @param duplication = 返回的测试数组
+     * @return
+     */
+
+    public boolean duplicate(int numbers[],int length,int [] duplication) {
+        // 1. 判断输入数据 是否合法
+        // 即，判断数组下标是否越界 & 数字 = 0~n-1范围
+
+        // 1.1 判断数组下标是否越界
+        if(numbers == null || length <=0) {
+            return false;
+        }
+
+        // 1.2 判断数字 是否在 （0 ~ n-1）范围
+        for (int i = 0; i < length; i++) {
+            if (numbers[i] < 0 || numbers[i] > length-1) {
+                return false;
+            }
+        }
+
+
+        // 2. 遍历数组
+        for (int i = 0; i < length; i++) {
+
+            // 3. 比较 下标= i位置的值与该下标本身
+            while( numbers[i]!=i ){
+                // 若下标= i位置的值 = 下标= 前者值位置的值，即找到重复数字，输出
+                if(numbers[i]== numbers[numbers[i]]){
+
+                    // 赋值给结果数组
+                    duplication[0] = numbers[i];
+
+                    return true;
+                    // 若只需找出任意1个重复数字，则采用return ，即找到重复数字时就直接结束函数
+                    // 采用 break; ，即 找出全部重复的数字
+                }
+
+                else {
+                    // 否则，交换位置
+                    // 把后者放在属于它的位置
+                    int temp = numbers[i];
+                    numbers[i] = numbers[numbers[i]];
+                    numbers[temp] = temp;
+                }
+            }
+        }
+
         System.out.println("结束");
-        return true;
+        return false;
+
     }
 
 
@@ -93,6 +152,7 @@ public class Exam_3 {
          System.out.println("结束");
          return -1;
      }
+
 
 
     /*******************************************/
@@ -159,15 +219,22 @@ public class Exam_3 {
      */
     public static void main(String[] args) {
 
-        // 定义待解数列
-//        int[] src = new int[]{2,3,1,0,2,5,3};
-        int[] src = new int[]{2,3,5,4,3,2,6,7};
+        // 功能测试1：含1个重复数字
+        int[] src = new int[]{2,1,0,1,4};
+        System.out.println(answer(src));
 
-        // 输出结果
-//        answer(src);
-        // answer_AssArr(src);
-        answer_NoChangArr(src);
+        // 功能测试2：含多个重复数字
+        int[] src1 = new int[]{2,1,0,1,2};
+        System.out.println(answer(src1));
 
+        // 功能测试3：不含重复数字
+        int[] src2 = new int[]{2,1,0,3,4};
+        System.out.println(answer(src2));
+
+        // 特殊输入测试：空指针
+        answer(null);
+        int[] src3 = new int[]{2,1,0,3,5};
+        System.out.println(answer(src3));
 
     }
 
