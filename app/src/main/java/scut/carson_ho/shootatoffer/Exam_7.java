@@ -1,8 +1,6 @@
 package scut.carson_ho.shootatoffer;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
-import java.util.List;
 
 /**
  * Created by Carson_Ho on 17/10/22.
@@ -10,62 +8,65 @@ import java.util.List;
 
 public class Exam_7 {
 
-//
-//                1
-//              /  \
-//              2    3
-//             / \  / \
-//            4  5 7   6
     /**
-     * 思路：使用递归的思路解决问题，分别在左右子树中进行操作
-     *
-     * @param preOrderList
-     * @param inOrderList
-     * @return
+     * 解题算法
      */
-    private static TreeNode reBuildTree(List<Integer> preOrderList, List<Integer> inOrderList) {
-        // 1. 判断输入的序列合法性
-        if (preOrderList == null || inOrderList == null)
+    public static TreeNode reConstructBinaryTree(int [] pre,int [] in) {
+        // 判断输入数据的合法性
+        if(pre ==null || pre ==null || pre.length==0 || pre.length != in.length)
             return null;
 
-
-        TreeNode root = null; // 根结点
-        List<Integer> leftPreOrderList; // 左子树的前序遍历序列
-        List<Integer> rightPreOrderList;// 右子树的前序遍历序列
-        List<Integer> leftInOrderList;// 左子树的中序遍历序列
-        List<Integer> rightInOrderList;// 左子树的前序遍历序列
-
-        int inOrderPos;
-        int preOrderPos;
-
-
-        if (preOrderList.size() != 0 && inOrderList.size() != 0) {
-            // 2. 把前序遍历序列的第1个结点设置为根结点
-            root = new TreeNode(preOrderList.get(0));
-            // 3. 根据根结点，找出 前序遍历 & 中序遍历的左、右子树序列
-            // a. 找出中序遍历的左、右子树序列
-            inOrderPos = inOrderList.indexOf(preOrderList.get(0));   // 中序遍历序列的分割点 = 根节点 = 前序遍历序列的第1个
-            leftInOrderList = inOrderList.subList(0, inOrderPos); // 左子树 = 中序遍历序列的前部分
-            rightInOrderList = inOrderList.subList(inOrderPos + 1, inOrderList.size());// 右子树 = 中序遍历序列的后部分
-
-            // a. 找出前序遍历的左、右子树序列
-            preOrderPos = leftInOrderList.size();  // 前序遍历序列的分割点 = 左子树的数目 = 中序遍历序列的前部分长度
-            leftPreOrderList = preOrderList.subList(1, preOrderPos + 1);// 左子树 = 第2位 - 分割点（第1位是根结点）
-            rightPreOrderList = preOrderList.subList(preOrderPos + 1, preOrderList.size()); // 右子树 = 分割点后1位 - 末尾
-
-            // 4. 将上述找出的2个左子树遍历顺序序列（前序 、中序）、2个右子树 分别作为递归的输入，构建出 二叉树的左&右子树
-            // a. 左子树 = 前序遍历、中序遍历的左子树序列作为输入，调用本函数进行递归而形成的树
-            root.left = reBuildTree(leftPreOrderList, leftInOrderList);
-            // b. 右子树 = 前序遍历、中序遍历的右子树序列作为输入，调用本函数进行递归而形成的树
-            root.right = reBuildTree(rightPreOrderList, rightInOrderList);
-
-        }
+        // 执行递归辅助算法
+        TreeNode root = reConstructBinaryTree(pre,0,pre.length-1,in,0,in.length-1);
         return root;
 
-    }
+     }
 
-    // 建立二叉树节点类
-    static class TreeNode {
+    /**
+     * 递归辅助算法
+     *
+     * @param pre 前序序列
+     * @param startPre 前序序列开始坐标
+     * @param endPre 前序序列结束坐标
+     *
+     * @param in 中序序列
+     * @param startIn 中序序列开始坐标
+     * @param endIn 中序序列结束坐标
+     * @return
+     */
+
+     private static TreeNode reConstructBinaryTree(int [] pre,int startPre,int endPre,int [] in,int startIn,int endIn) {
+
+        if(startPre > endPre || startIn>endIn )
+            return null;
+
+            // 1. 重建二叉树的根节点 = 前序遍历序列的第1个结点
+            TreeNode root=new TreeNode(pre[startPre]);
+
+         // 2. 通过数组遍历，在中序遍历中找出根节点
+      for(int i= startIn; i<=endIn ;i++)
+
+          // 3. 根据在上1步找出的根节点，找出前序遍历 & 中序遍历中的左、右子树，并 作为递归输入，重复上述步骤进行递归
+          // 最终找出重建二叉树的左、右子树
+            if(in[i]==pre[startPre]){
+
+                // a. 前序遍历的左子树 = 第1位（根节点）的下1位 ~ x ，其中，x = 根节点 + 中序遍历中左子树的数量、中序遍历左子树的数量 = 中序遍历根节点位置的前部分
+                // b. 中序遍历的左子树 = 第1位~ 根节点前1位
+                root.left=reConstructBinaryTree(pre,startPre+1,startPre+ (i-startIn),  in,startIn,i-1);
+
+                // a. 前序遍历的右子树 = 左子树最后1位的后1位 ~ 最后1位
+                // b. 中序遍历的右子树 = 根节点前1位 ~ 最后1位
+                root.right=reConstructBinaryTree(pre, (startPre+1) + i-startIn,endPre,in,i+1,endIn);
+             }
+
+         return root;
+   }
+
+    /**
+     * 辅助类：二叉树节点结构类
+     */
+
+     static class TreeNode {
         int val;
         TreeNode left;
         TreeNode right;
@@ -78,7 +79,26 @@ public class Exam_7 {
     }
 
     /**
-     * 分层遍历二叉树，使用一个队列，也就是宽度优先遍历
+     * 测试用例
+     */
+
+//                1
+//              /  \
+//              2    3
+//             / \  / \
+//            4  5 7   6
+    public static void main(String[] args) {
+        //前序遍历{1,2,4,7,3,5,6,8} & 中序遍历序列{4,7,2,1,5,3,8,6}
+        int[] pre = {1,2,4,7,3,5,6,8};
+        int[] in = {4,7,2,1,5,3,8,6};
+        // 重建二叉树后，使用宽度遍历进行输出测试
+        levelTraversal(reConstructBinaryTree(pre,in));
+
+
+    }
+
+    /**
+     * 测试辅助算法：分层遍历二叉树，使用一个队列，也就是宽度优先遍历
      * @param root
      */
     public static void levelTraversal(TreeNode root){
@@ -96,46 +116,5 @@ public class Exam_7 {
                 queue.add(cur.right);
 
         }
-    }
-
-
-
-    public static void main(String[] args) {
-        TreeNode root = new TreeNode(1);
-        TreeNode r2 = new TreeNode(2);
-        TreeNode r3 = new TreeNode(3);
-        TreeNode r4 = new TreeNode(4);
-        TreeNode r5 = new TreeNode(5);
-        TreeNode r6 = new TreeNode(6);
-        TreeNode r7 = new TreeNode(7);
-
-        root.left = r2;
-        root.right = r3;
-        r2.left = r4;
-        r2.right = r5;
-        r3.right = r6;
-        r3.left = r7;
-        List<Integer> preList = new ArrayList<>();
-        preList.add(1);
-        preList.add(2);
-        preList.add(4);
-        preList.add(5);
-        preList.add(3);
-        preList.add(7);
-        preList.add(6);
-
-        List<Integer> inList = new ArrayList<>();
-        inList.add(4);
-        inList.add(2);
-        inList.add(5);
-        inList.add(1);
-        inList.add(7);
-        inList.add(3);
-        inList.add(6);
-
-
-        TreeNode reBuildTree = reBuildTree(preList, inList);
-        levelTraversal(reBuildTree);
-
     }
 }
