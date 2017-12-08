@@ -7,22 +7,6 @@ package scut.carson_ho.shootatoffer;
 public class Exam_15 {
 
     /**
-     * 执行3种算法
-     */
-    public static void main(String[] args){
-        // 对3种解法进行测试
-        System.out.println(numberOfOne1(3));
-        System.out.println(numberOfOne1(-3));
-
-        System.out.println(numberOfOne2(3));
-        System.out.println(numberOfOne2(-3));
-
-        System.out.println(numberOfOne3(3));
-        System.out.println(numberOfOne3(-3));
-    }
-
-
-    /**
      * 解法1：右移判断
      */
     public static int numberOfOne1(int n){
@@ -66,6 +50,21 @@ public class Exam_15 {
             count++;
         }
         return count;
+    }
+
+    /**
+     * 测试用例
+     */
+    public static void main(String[] args){
+        // 对3种解法进行测试
+        System.out.println(numberOfOne1(3));
+        System.out.println(numberOfOne1(-3));
+
+        System.out.println(numberOfOne2(3));
+        System.out.println(numberOfOne2(-3));
+
+        System.out.println(numberOfOne3(3));
+        System.out.println(numberOfOne3(-3));
     }
 
 }
