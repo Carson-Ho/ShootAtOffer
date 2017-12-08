@@ -7,20 +7,6 @@ package scut.carson_ho.shootatoffer;
 public class Exam_16 {
 
     /**
-     * 执行 解题算法
-     */
-    public static void main(String[] args) {
-
-        // 测试用例
-        System.out.println(PowerEst(2, 4));
-        System.out.println(PowerEst(2, -4));
-        System.out.println(PowerEst(2, 0));
-        System.out.println(PowerEst(-2, 3));
-        System.out.println(PowerEst(0, 0));
-        System.out.println(PowerEst(0, 3));
-        System.out.println(PowerEst(0, -1));
-    }
-    /**
      * 常规解法，时间复杂度为O(n)
      * @param base = 底数
      * @param exponent = 幂
@@ -37,6 +23,7 @@ public class Exam_16 {
 
     /**
      * 完整解法，时间复杂度为O(logN)
+     * 完善点：问题的完整性 & 乘方效率
      * @param base = 底数
      * @param exponent = 幂
      * @return 结果
@@ -59,8 +46,8 @@ public class Exam_16 {
         double  result = powerWithUnsignedExponent(base,n);
 
         // 3. 当指数 = 负数时，将最后结果取倒数
-        if(exponent<0)
-            result=1/result;
+        if(exponent < 0)
+            result = 1/result;
 
         // 4. 返回最后结果
         return result;
@@ -68,7 +55,7 @@ public class Exam_16 {
 
 
     /**
-     * 求一个数的正整数次幂
+     * 辅助算法：求一个数的正整数次幂
      *
      * @param base     底数
      * @param exponent 幂
@@ -94,13 +81,28 @@ public class Exam_16 {
         // 3. 求出最终的值
         result *= result;
 
-        // 4. 判断最终值的奇偶:用位与运算符 代替 求余运算符
+        // 4. 判断最终值的奇偶:通过求余判断（用位与运算符 代替 求余运算符）
         // 若是奇数，就还要乘多1次底数
         if((exponent & 0x1)==1)
-            result*=base;
+            result *= base;
 
         // 5. 返回结果
         return result;
+    }
+
+    /**
+     * 测试用例
+     */
+    public static void main(String[] args) {
+
+        // 测试用例
+        System.out.println(PowerEst(2, 4));
+        System.out.println(PowerEst(2, -4));
+        System.out.println(PowerEst(2, 0));
+        System.out.println(PowerEst(-2, 3));
+        System.out.println(PowerEst(0, 0));
+        System.out.println(PowerEst(0, 3));
+        System.out.println(PowerEst(0, -1));
     }
 
 }
