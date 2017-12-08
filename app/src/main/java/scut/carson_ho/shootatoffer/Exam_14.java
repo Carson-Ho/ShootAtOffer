@@ -7,29 +7,6 @@ package scut.carson_ho.shootatoffer;
 public class Exam_14 {
 
     /**
-     * 执行 动态规划 算法
-     */
-    public static void main(String[] args){
-//        // 功能测试：绳子长度 = 10
-//        System.out.println("绳子长度 = 10 的最大值:"+maxCutting(10));
-//
-//        // 边界值测试：绳子长度 = 0、1、2、3、4
-//        for(int i=0;i<5;i++){
-//            System.out.println("长度 = "+i+"的最大值:"+maxCutting(i));
-//        }
-
-
-
-        // 功能测试：绳子长度 = 10
-        System.out.println("绳子长度 = 10 的最大值:"+maxCuttingGreedy(10));
-
-        // 边界值测试：绳子长度 = 0、1、2、3、4
-        for(int i=0;i<5;i++){
-            System.out.println("长度 = "+i+"的最大值:"+maxCuttingGreedy(i));
-        }
-    }
-
-    /**
      * 解法1：动态规划
      */
     public static int maxCutting(int length){
@@ -61,9 +38,9 @@ public class Exam_14 {
             max = 0;
             // 3. 通过for循环，通过计算 & 比较的方式，求出子问题的最优解
             for(int j=1;j<=i/2;j++){
-                // 先计算出 f（i）* f（n-i）所有值
+
+                // 先计算出 f（i）* f（n-i）所有值、再通过比较，从而求出最大值
                 temp = f[j]*f[i-j];
-                // 再通过比较，从而求出最大值
                 if(temp>max)
                     max = temp;
             }
@@ -84,6 +61,8 @@ public class Exam_14 {
         /**
          * 特殊情况考虑：绳子长度 <2、=2、=3时
          */
+
+        // 1. 在绳子长度<2、=2、3时，采用和动态规划同样的处理
         // a. 当绳子长度<2时，无法剪，最大乘积 = 0
         if(length<2) return 0;
 
@@ -93,10 +72,11 @@ public class Exam_14 {
         // c. 当绳子长度 = 3时，可剪成长度 = 1 / 2的两段 or 长度 =1 的三段，由于1x2>1x1x1，因此f（3）=2
         if(length==3) return 2;
 
-        // 尽可能多地剪长度为3的绳子
+
+        // 2. 尽可能多地剪长度为3的绳子
         int timesOf3 = length/3;
 
-        // 当剩下的绳子长度 = 4时，不能再剪去长度 = 3的绳子段
+        // 3. 当剩下的绳子长度 = 4时，不能再剪去长度 = 3的绳子段
         // 而是，剪成2-2
         if (length%3==1)
             timesOf3-=1;
@@ -105,6 +85,29 @@ public class Exam_14 {
         // 计算最终的乘积最大值
         // Math.pow（a,b）的作用 = 返回a^b的值
         return (int)(Math.pow(3,timesOf3))*(int)(Math.pow(2,timesOf2));
+    }
+
+    /**
+     * 测试用例
+     */
+    public static void main(String[] args){
+//        // 功能测试：绳子长度 = 10
+//        System.out.println("绳子长度 = 10 的最大值:"+maxCutting(10));
+//
+//        // 边界值测试：绳子长度 = 0、1、2、3、4
+//        for(int i=0;i<5;i++){
+//            System.out.println("长度 = "+i+"的最大值:"+maxCutting(i));
+//        }
+
+
+
+        // 功能测试：绳子长度 = 10
+        System.out.println("绳子长度 = 10 的最大值:"+maxCuttingGreedy(10));
+
+        // 边界值测试：绳子长度 = 0、1、2、3、4
+        for(int i=0;i<5;i++){
+            System.out.println("长度 = "+i+"的最大值:"+maxCuttingGreedy(i));
+        }
     }
 
 
