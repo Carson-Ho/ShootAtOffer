@@ -9,28 +9,15 @@ import java.util.Stack;
 public class Exam_31 {
 
     /**
-     * 测试用例
+     * 解题算法
      */
-    public static void main(String[] args){
-        // 压入序列
-        int[] push = {1,2,3,4,5};
-
-        // 判断弹出序列
-        int[] pop1 = {4,5,3,2,1};
-        int[] pop2 = {4,3,5,1,2};
-        System.out.println(isPopOrder(push,pop1));
-        System.out.println(isPopOrder(push,pop2));
-        // 特殊输入测试
-        System.out.println(isPopOrder(null,null));
-    }
-
-
     public static boolean isPopOrder(int[] pushSeq,int[] popSeq){
+
         // 判断输入数据的合法性：传入参数是否为null，压入序列与弹出序列长度是否一致
-        if(pushSeq==null||popSeq==null||pushSeq.length!=popSeq.length)
+        if(pushSeq == null || popSeq == null|| pushSeq.length != popSeq.length)
             return false;
 
-        // 设置2指针分别指向压入序列、压出序列
+        // 设置2指针分别指向压入序列、弹出序列
         int pushSeqIndex=0,popSeqIndex=0;
 
         // 创建1个栈 用于辅助判断
@@ -58,5 +45,22 @@ public class Exam_31 {
         }
         return true;
     }
+
+    /**
+     * 测试用例
+     */
+    public static void main(String[] args){
+        // 压入序列
+        int[] push = {1,2,3,4,5};
+
+        // 判断弹出序列
+        int[] pop1 = {4,5,3,2,1};
+        int[] pop2 = {4,3,5,1,2};
+        System.out.println(isPopOrder(push,pop1));
+        System.out.println(isPopOrder(push,pop2));
+        // 特殊输入测试
+        System.out.println(isPopOrder(null,null));
+    }
+
 
 }
