@@ -11,6 +11,44 @@ import java.util.Queue;
 public class Exam_27 {
 
     /**
+     * 设置结点结构
+     */
+
+    public static class TreeNode {
+        int val = 0; // 二叉树的结点数据
+        TreeNode left = null; // 二叉树的左子树（左孩子）
+        TreeNode right = null; // 二叉树的右子树（右孩子）
+
+        public TreeNode(int val) {
+            this.val = val;
+
+        }
+
+    }
+
+    /**
+     * 解题算法
+     */
+    public static void Mirror(TreeNode root){
+        // 代码的鲁棒性：二叉树的头节点 = 空
+        if(root == null)
+            return;
+
+        // 1. 判断前序遍历到的节点是否有左、右节点
+        if(root.left == null && root.right == null)
+            return;
+
+        // 2. 若有，则交换2个节点
+        TreeNode temp = root.left;
+        root.left = root.right;
+        root.right = temp;
+
+        // 3. 通过递归继续前序遍历节点
+        Mirror(root.left);
+        Mirror(root.right);
+    }
+
+    /**
      * 测试用例
      */
     public static void main(String[] args){
@@ -18,67 +56,30 @@ public class Exam_27 {
         //            8
         //       6         10
         //    5     7    9     11
-        TreeNode<Integer> root = new TreeNode<>(8);
-        root.left = new TreeNode<>(6);
-        root.right = new TreeNode<>(10);
-        root.left.left = new TreeNode<>(5);
-        root.left.right = new TreeNode<>(7);
-        root.right.left = new TreeNode<>(9);
-        root.right.right = new TreeNode<>(11);
+        TreeNode root = new TreeNode(8);
+        root.left = new TreeNode(6);
+        root.right = new TreeNode(10);
+        root.left.left = new TreeNode(5);
+        root.left.right = new TreeNode(7);
+        root.right.left = new TreeNode(9);
+        root.right.right = new TreeNode(11);
         // 通过层序遍历输出二叉树结构
         System.out.println("初始二叉树结构");
         levelTravel(root);
 
         // 测试
         System.out.println("功能测试");
-        mirrorRecursively(root);
+        Mirror(root);
         levelTravel(root);
 
     }
 
-
-    /**
-     * 设置结点结构
-     */
-    public static class TreeNode<T> {
-        T val;
-        TreeNode<T> left;
-        TreeNode<T> right;
-
-        public TreeNode(T data) {
-            this.val = data;
-            this.left = null;
-            this.right = null;
-        }
-    }
-
-    /**
-     * 解题算法
-     */
-    public static void mirrorRecursively(TreeNode<Integer> root){
-        // 代码的鲁棒性：二叉树的头节点 = 空
-        if(root == null)
-            return;
-        // 1. 判断前序遍历到的节点是否有左、右节点
-        if(root.left == null && root.right == null)
-            return;
-        // 2. 若有，则交换2个节点
-        TreeNode<Integer> temp = root.left;
-        root.left = root.right;
-        root.right = temp;
-        // 3. 通过递归继续前序遍历节点
-        mirrorRecursively(root.left);
-        mirrorRecursively(root.right);
-    }
-
-
-
-
     /**
      * 内容：层序遍历
      * 方式：非递归（采用队列）
+     * 作用：本方法只用于测试时输出数组，与本解题算法无关
      */
-    public static void levelTravel(TreeNode<Integer> root){
+    public static void levelTravel(TreeNode root){
         // 创建队列
         Queue<TreeNode> q=new LinkedList<TreeNode>();
 
@@ -107,8 +108,9 @@ public class Exam_27 {
 
     /**
      * 输出结点值
+     * 作用：本方法只用于测试时输出数组，与本解题算法无关
      */
-    public static void printNode(TreeNode<Integer> node){
+    public static void printNode(TreeNode node){
         System.out.print(node.val);
     }
 
