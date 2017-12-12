@@ -194,7 +194,7 @@ public class Exam_32 {
 
                 // 栈空时，说明当层节点已经遍历完毕，即输出该层所有节点
                 list.add(result2);
-               
+
             }
 
         }
