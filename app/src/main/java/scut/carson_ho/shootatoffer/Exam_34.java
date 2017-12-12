@@ -74,7 +74,8 @@ public class Exam_34 {
             findPath(curNode.right, path, result, exceptedSum, currentSum);
         }
 
-        // 4. 若当前节点 = 叶节点 & 路径节点值的和 = 期望值，则认为该路径符合要求，直接输出
+        // 4. 若当前节点 = 叶节点 & 路径节点值的和 = 期望值
+        // 则认为该路径符合要求，将其添加到链表集合当中
         if(curNode.left == null && curNode.right == null && currentSum == exceptedSum) {
             System.out.println(path);
             result.add(new ArrayList<Integer>(path));
