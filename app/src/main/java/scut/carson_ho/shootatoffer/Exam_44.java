@@ -7,18 +7,8 @@ package scut.carson_ho.shootatoffer;
 public class Exam_44 {
 
     /**
-     * 测试用例
+     * 解题算法
      */
-    public static void main(String[] args) {
-        // 功能测试
-        System.out.println(digitAtIndex(15));
-
-        // 性能测试：数字很大
-        System.out.println(digitAtIndex(1001));
-
-        // 特殊输入测试
-        System.out.println(digitAtIndex(0));
-    }
 
     public static int digitAtIndex(int index){
         // 判断输入数据的合法性
@@ -39,7 +29,7 @@ public class Exam_44 {
         int length = 2; // 表示多少位数
         int boundNum = 10;
 
-        while (curIndex+lengthSum(length)<index){
+        while (curIndex + lengthSum(length)<index){
             curIndex+=lengthSum(length);
             boundNum*=10;
             length++;
@@ -54,15 +44,33 @@ public class Exam_44 {
 
         /**
          * 3. 确定该数字 在该数的位置
+         * y = n - f (i-1) - （x -10^（i-1））* i
          */
         return Integer.toString(curNum).charAt(index-curIndex-addNum*length)-'0';
     }
 
+    /**
+     * 辅助算法：计算 2*9*（10^i）
+     */
     public static int lengthSum(int length){
         int count = 9;
         for(int i=1;i<length;i++)
             count*=10;
         return count*length;
+    }
+
+    /**
+     * 测试用例
+     */
+    public static void main(String[] args) {
+        // 功能测试
+        System.out.println(digitAtIndex(15));
+
+        // 性能测试：数字很大
+        System.out.println(digitAtIndex(1001));
+
+        // 特殊输入测试
+        System.out.println(digitAtIndex(0));
     }
 
 }
