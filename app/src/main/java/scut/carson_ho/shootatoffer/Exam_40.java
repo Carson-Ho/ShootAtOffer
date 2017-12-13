@@ -66,7 +66,7 @@ public class Exam_40 {
 //    }
 //
 //    /**
-//     * Partition算法实现
+//     * 辅助算法：Partition算法
 //     */
 //    private static int partition(int[] array, int low, int high) {
 //        if(low >= high) return low;
@@ -83,6 +83,9 @@ public class Exam_40 {
 //        return j;
 //    }
 //
+//    /**
+//     * 辅助算法：交换位置
+//     */
 //    private static void swap(int[] array, int indexA, int indexB) {
 //        int t = array[indexA];
 //        array[indexA] = array[indexB];

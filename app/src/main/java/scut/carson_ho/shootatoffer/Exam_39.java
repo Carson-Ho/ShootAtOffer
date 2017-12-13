@@ -133,37 +133,33 @@ public class Exam_39 {
             System.out.println("输入的数组为空");
             return 0;
         }
+
         int midIndex = array.length / 2;
         int start = 0;
         int end = array.length - 1;
 
         // 2. 使用partition算法排序数组
         int p = partition(array, start, end);
+
         while(p != midIndex) {
+            // 2.1 若选中数字的下标 > n /2，那么中位数位于其左边，下面接着在它的左边部分的数组中查找；
             if(p > midIndex)
                 end = p - 1;
+            // 2.2 若选中数字的下标 ＜ n /2，那么中位数位于其右边，下面接着在它的右边部分的数组中查找；
             else if(p < midIndex)
                 start = p + 1;
+
             p = partition(array, start, end);
         }
 
+        // 最终，考虑异常情况： 判断数组中数字出现频率最高的次数是否达到数组长度的1半
         if(checkMoreThanHalf(array, array[p]))
             return array[p];
         return 0;
     }
 
-    // 4. 最终，通过1辅助算法 判断数组中数字出现频率最高的次数是否达到数组长度的1半
-    private static boolean checkMoreThanHalf(int[] array, int val) {
-        int count = 0;
-        for(int i : array) {
-            if(i == val)
-                ++count;
-        }
-        return count > array.length / 2;
-    }
-
     /**
-     * partition算法实现
+     * 辅助算法1：partition算法
      */
     private static int partition(int[] array, int low, int high) {
         int val = array[low];
@@ -182,29 +178,45 @@ public class Exam_39 {
         return j;
     }
 
+    /**
+     * 辅助算法2：交换位置
+     */
     private static void swap(int[] array, int indexA, int indexB) {
         int t = array[indexA];
         array[indexA] = array[indexB];
         array[indexB] = t;
     }
 
-
-
     /**
-     * 解题算法3：根据数组规律
-     * 核心思想：根据数组特点，即若数组中有1个数字出现的次数>数组长度的1半，即说明它出现的次数>其他所有数字出现的次数和
+     * 辅助算法3：考虑异常情况
+     * 作用： 判断数组中数字出现频率最高的次数是否达到数组长度的1半
      */
+    private static boolean checkMoreThanHalf(int[] array, int val) {
+        int count = 0;
+        for(int i : array) {
+            if(i == val)
+                ++count;
+        }
+        return count > array.length / 2;
+    }
+//
+//
+//
+//    /**
+//     * 解题算法3：根据数组规律
+//     * 核心思想：根据数组特点，即若数组中有1个数字出现的次数>数组长度的1半，即说明它出现的次数>其他所有数字出现的次数和
+//     */
 //    public static int MoreThanHalfNum_Solution(int [] array) {
+//
 //        // 1. 检查输入数组的合法性
 //        if(array == null || array.length == 0) {
 //            System.out.println("输入的数组为空");
 //            return 0;
 //        }
 //
-//        // 2. 设置2个变量：value = 遍历的数组数字、count = 该数字出现的次数
-//        // 均初始化为0
-//        int val = 0;
-//        int count = 0;
+//        // 2. 设置2个变量：均初始化为0
+//        int val = 0; // 遍历的数组数字
+//        int count = 0; // 该数字出现的次数
 //
 //        // 3. 遍历数组，遍历过程中根据以下规则更新2个变量
 //        for(int i : array) {

@@ -11,20 +11,6 @@ import java.util.List;
 public class Exam_38_2 {
 
     /**
-     * 测试用例
-     */
-    public static void main(String[] args) {
-
-        // 功能测试：无重复字符 字符串
-        System.out.println("功能测试1：无重复字符 字符串");
-        System.out.println(stringCombination("abc"));
-
-        // 特殊输入测试：输入字符为空
-        System.out.println("特殊输入测试：输入字符为空");
-        System.out.println(stringCombination(null));
-
-    }
-    /**
      * 解题算法
      */
     public static List<String> stringCombination(String str) {
@@ -33,6 +19,7 @@ public class Exam_38_2 {
             System.out.println("输入的字符串为空");
             return new ArrayList<>();
         }
+
         char chars[] = str.toCharArray();// 将字符串转换成数组便于处理
         StringBuilder sb = new StringBuilder();
         int index = 0;
@@ -48,6 +35,9 @@ public class Exam_38_2 {
         return result;
     }
 
+    /**
+     * 辅助算法
+     */
     private static void stringCombination(char[] chars, int length,List<String> result,StringBuilder sb,int index) {
         if(length == 0) {
             result.add(sb.toString());
@@ -65,5 +55,20 @@ public class Exam_38_2 {
         // 不选择第一个，从剩下的中选择length个
         stringCombination(chars, length,result,sb,index);
         --index;
+    }
+
+    /**
+     * 测试用例
+     */
+    public static void main(String[] args) {
+
+        // 功能测试：无重复字符 字符串
+        System.out.println("功能测试1：无重复字符 字符串");
+        System.out.println(stringCombination("abc"));
+
+        // 特殊输入测试：输入字符为空
+        System.out.println("特殊输入测试：输入字符为空");
+        System.out.println(stringCombination(null));
+
     }
 }
