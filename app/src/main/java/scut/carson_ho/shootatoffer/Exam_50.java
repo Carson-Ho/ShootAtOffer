@@ -7,21 +7,6 @@ package scut.carson_ho.shootatoffer;
 public class Exam_50 {
 
     /**
-     * 测试用例
-     */
-    public static void main(String[] args){
-
-        // 功能测试1：字符串存在只出现1次的字符
-        System.out.println(FirstNotRepeatingChar("abaccdeff"));
-
-        // 功能测试1：字符串中所有字符都知出现1次
-        System.out.println(FirstNotRepeatingChar("abcdefg"));
-
-        // 特殊输入：无效输入
-        System.out.println(FirstNotRepeatingChar(null));
-    }
-
-    /**
      * 解题算法
      */
     public static char FirstNotRepeatingChar(String str) {
@@ -29,6 +14,7 @@ public class Exam_50 {
         // 1. 检查输入数据的合法性
         if(str == null || str.length() == 0)
             return '0';
+
         // 2. 本题 实现1简易的哈希表 = 1维数组：
         // a. 长度 = 256：所有字符都可用ASCII表示 = 0-255 = 256位
         // b. 数组下标 = 字符的ASCII码
@@ -49,5 +35,20 @@ public class Exam_50 {
             }
         }
         return '0';
+    }
+
+    /**
+     * 测试用例
+     */
+    public static void main(String[] args){
+
+        // 功能测试1：字符串存在只出现1次的字符
+        System.out.println(FirstNotRepeatingChar("abaccdeff"));
+
+        // 功能测试1：字符串中所有字符都知出现1次
+        System.out.println(FirstNotRepeatingChar("abcdefg"));
+
+        // 特殊输入：无效输入
+        System.out.println(FirstNotRepeatingChar(null));
     }
 }
