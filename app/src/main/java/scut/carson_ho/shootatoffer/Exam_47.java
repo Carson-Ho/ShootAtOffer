@@ -7,40 +7,6 @@ package scut.carson_ho.shootatoffer;
 public class Exam_47 {
 
     /**
-     * 测试用例
-     */
-
-    public static void main(String[] args){
-        // 功能测试
-        int[][] data = {
-                {1,10,3,8},
-                {12,2,9,6},
-                {5,7,4,11},
-                {3,7,16,5}};
-        System.out.println(getMaxVaule(data));
-
-        // 只有1行
-        int[][] data1 = {
-                {1,10,3,8},
-               };
-
-        System.out.println(getMaxVaule(data1));
-
-        // 只有1列
-        int[][] data2 = {
-                {1},
-                {12},
-                {5},
-                {3},
-        };
-        System.out.println(getMaxVaule(data2));
-
-        // 特殊输入测试
-        System.out.println(getMaxVaule(null));
-    }
-
-
-    /**
      * 解题算法
      */
     public static int getMaxVaule(int[][] data){
@@ -63,10 +29,12 @@ public class Exam_47 {
             curRowIndex = row & 1;
             preRowIndex = 1 - curRowIndex;
 
-            for(int col=0;col<data[0].length;col++){
-                // 根据f (i , j ) = max （f ( i-1, j )， f ( i ,  j -1 ) ） + gift [ i , j ] 计算礼物的最大值
+            for(int col=0 ; col<data[0].length ; col++){
+
+                // 根据f (i , j ) = max [ f ( i-1, j )， f ( i ,  j -1 ) ]  + gift [ i , j ] 计算礼物的最大值
                 if(col == 0)
                     dp[curRowIndex][col] = dp[preRowIndex][col]+data[row][col];
+
                 else{
                     if(dp[preRowIndex][col] >= dp[curRowIndex][col-1])
                         dp[curRowIndex][col] = dp[preRowIndex][col]+data[row][col];
@@ -75,7 +43,41 @@ public class Exam_47 {
                 }
             }
         }
+
         return dp[(data.length-1)&1][data[0].length-1];
+    }
+
+    /**
+     * 测试用例
+     */
+
+    public static void main(String[] args){
+        // 功能测试
+        int[][] data = {
+                {1,10,3,8},
+                {12,2,9,6},
+                {5,7,4,11},
+                {3,7,16,5}};
+        System.out.println(getMaxVaule(data));
+
+        // 只有1行
+        int[][] data1 = {
+                {1,10,3,8},
+        };
+
+        System.out.println(getMaxVaule(data1));
+
+        // 只有1列
+        int[][] data2 = {
+                {1},
+                {12},
+                {5},
+                {3},
+        };
+        System.out.println(getMaxVaule(data2));
+
+        // 特殊输入测试
+        System.out.println(getMaxVaule(null));
     }
 
 }
