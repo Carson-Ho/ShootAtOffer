@@ -7,46 +7,36 @@ package scut.carson_ho.shootatoffer;
 public class Exam_58 {
 
     /**
-     * 测试用例
-     */
-    public static void main(String[] args)  {
-
-        // 功能测试：句子中多个单词
-        String str1 = "I am a student.";
-        System.out.println(reverseSentence(str1));
-
-        // 特殊输入测试：字符串指针为空
-        System.out.println(reverseSentence(null));
-    }
-
-    /**
      * 解题算法
      */
-    public static String reverseSentence(String inputString){
+    public static String reverseSentence(String str){
 
         // 判断输入数据的合法性
-        if (inputString == null || inputString.length() < 2){
+        if (str == null || str.length() < 2){
             System.out.println("输入的数据不合法");
-            return inputString;
+            return str;
         }
 
         // 转换成字符串数组便于处理
-        char[] inputChars = inputString.toCharArray();
+        char[] chars = str.toCharArray();
 
         // 1. 翻转句子中所有字符顺序
-        reverse(inputChars,0,inputChars.length - 1);
+        reverse(chars,0,chars.length - 1);
 
         // 2. 翻转每个单词中的字符顺序
         // 通过扫描空格来确定每个单词的起始 & 终止位置
         int start = 0;
         int end = 0;
 
-        while (start < inputChars.length) {
-            if (inputChars[start] == ' ') {
+        while (start < chars.length) {
+            // 2.1 起始位置 = 空格时，继续往下扫描
+            if (chars[start] == ' ') {
                 start++;
                 end++;
-            } else if (end == inputChars.length || inputChars[end] == ' ') {
-                reverse(inputChars, start, end - 1);
+
+                // 2.2 终止位置 = 空格时，即可以开始反转单词
+            } else if (end == chars.length || chars[end] == ' ') {
+                reverse(chars, start, end - 1);
                 end++;
                 start = end;
             } else {
@@ -54,7 +44,7 @@ public class Exam_58 {
             }
         }
 
-        return String.valueOf(inputChars);
+        return String.valueOf(chars);
 
     }
 
@@ -73,6 +63,19 @@ public class Exam_58 {
             end--;
         }
         return chars;
+    }
+
+    /**
+     * 测试用例
+     */
+    public static void main(String[] args)  {
+
+        // 功能测试：句子中多个单词
+        String str1 = "I am a student.";
+        System.out.println(reverseSentence(str1));
+
+        // 特殊输入测试：字符串指针为空
+        System.out.println(reverseSentence(null));
     }
 
 }
