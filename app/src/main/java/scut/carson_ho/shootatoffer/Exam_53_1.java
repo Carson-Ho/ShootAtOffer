@@ -7,27 +7,6 @@ package scut.carson_ho.shootatoffer;
 public class Exam_53_1 {
 
     /**
-     * 测试用例
-     */
-    public static void main(String[] args){
-        // 功能测试：缺失的数字在开始、中间 & 结尾
-        int[] data1 = new int[]{1,2,3,4,5,6};
-        int[] data2 = new int[]{0,1,3,4,5};
-        int[] data3 = new int[]{0,1,2,3,4,5};
-        System.out.println(getMissingNumber(data1));
-        System.out.println(getMissingNumber(data2));
-        System.out.println(getMissingNumber(data3));
-
-        // 边界值测试：数组中只有1个数字 = 0
-        int[] data4 = new int[]{0};
-        System.out.println(getMissingNumber(data4));
-
-        // 特殊输入测试：数组为空
-        System.out.println(getMissingNumber(null));
-    }
-
-
-    /**
      * 解题算法
      */
     public static int getMissingNumber(int[] data){
@@ -40,6 +19,7 @@ public class Exam_53_1 {
         int right = data.length-1;
         int mid;
 
+        // 采用二分法
         while (left<=right){
 
             // 求中间元素
@@ -66,10 +46,31 @@ public class Exam_53_1 {
         }
 
         if (left == data.length)
+
         return left;
 
         // 无效输入时返回-1，即数组不按要求排序 / 有数字不在0—~n-1的范围内
         return -1;
+    }
+
+    /**
+     * 测试用例
+     */
+    public static void main(String[] args){
+        // 功能测试：缺失的数字在开始、中间 & 结尾
+        int[] data1 = new int[]{1,2,3,4,5,6};
+        int[] data2 = new int[]{0,1,3,4,5};
+        int[] data3 = new int[]{0,1,2,3,4,5};
+        System.out.println(getMissingNumber(data1));
+        System.out.println(getMissingNumber(data2));
+        System.out.println(getMissingNumber(data3));
+
+        // 边界值测试：数组中只有1个数字 = 0
+        int[] data4 = new int[]{0};
+        System.out.println(getMissingNumber(data4));
+
+        // 特殊输入测试：数组为空
+        System.out.println(getMissingNumber(null));
     }
 
 }

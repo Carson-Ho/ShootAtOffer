@@ -7,23 +7,6 @@ package scut.carson_ho.shootatoffer;
 public class Exam_53 {
 
     /**
-     * 测试用例
-     */
-    public static void main(String[] args){
-        // 功能测试：含查找的数字，出现1次 / 多次、无查找的数字
-        int[] data1 = new int[]{1,2,3,4,5,6,7,8};
-        int[] data2 = new int[]{1,2,3,3,3,3,5,6};
-        System.out.println(getNumberOfK(data1,4));
-        System.out.println(getNumberOfK(data2,3));
-
-        // 特殊输入测试：null、输入的数组只有1个数字
-        System.out.println(getNumberOfK(null,1));
-        int[] data3 = new int[]{1};
-        System.out.println(getNumberOfK(data3,1));
-    }
-
-
-    /**
      * 解题算法
      * @ param array 排序数组
      * @ param k 需统计的数字
@@ -39,15 +22,16 @@ public class Exam_53 {
 
         // 2. 使用 二分法 查找数组中的 最后1个 m
         int indexOfLastK = getLastK(array, 0, array.length - 1, k);
+
         if(indexOfFirstK == -1)
             return 0;
 
-        // 3. 返回需统计数字的次数
+        // 3. 返回需统计数字的次数 = 最后1个的下标 — 前1个下标
         return indexOfLastK - indexOfFirstK + 1;
     }
 
     /**
-     * 使用 二分法 查找数组中的 第1个 m
+     * 辅助算法：使用 二分法 查找数组中的 第1个 m
      */
     private static int getFirstK(int[] array, int low, int high, int k) {
 
@@ -63,11 +47,11 @@ public class Exam_53 {
 
         // 通过 递归 方式找出元素
         // a.  若给定值 ＜ 中间记录，则 在中间记录的左半区（低半区） 继续查找
-        if(array[mid] > k)
+        if(k < array[mid]  )
             return getFirstK(array, low, mid - 1, k);
 
         // b.  若给定值 ＞ 中间记录，则 在中间记录的右半区 继续查找
-        else if(array[mid] < k)
+        else if( k > array[mid] )
             return getFirstK(array, mid + 1, high, k);
 
         // c. 若给定值 = 中间记录，需判断该k是否是数组中的第一个k
@@ -81,7 +65,7 @@ public class Exam_53 {
     }
 
     /**
-     * 使用 二分法 查找数组中的 最后1个 m
+     * 辅助算法：使用 二分法 查找数组中的 最后1个 m
      */
     private static int getLastK(int[] array, int low, int high, int k) {
 
@@ -93,9 +77,10 @@ public class Exam_53 {
         int mid = low + (high - low) / 2;
 
         // a. 若给定值 ＜ 中间记录，则 在中间记录的左半区 继续查找
-        if(array[mid] > k)
+        if( k < array[mid]  )
             return getLastK(array, low, mid - 1, k);
-        else if(array[mid] < k)
+
+        else if( k < array[mid]  )
             // b.  若给定值 ＞ 中间记录，则 在中间记录的右半区 继续查找
             return getLastK(array, mid + 1, high, k);
 
@@ -106,6 +91,23 @@ public class Exam_53 {
             return getLastK(array, mid + 1, high, k);
         else
             return mid;
+    }
+
+
+    /**
+     * 测试用例
+     */
+    public static void main(String[] args){
+        // 功能测试：含查找的数字，出现1次 / 多次、无查找的数字
+        int[] data1 = new int[]{1,2,3,4,5,6,7,8};
+        int[] data2 = new int[]{1,2,3,3,3,3,5,6};
+        System.out.println(getNumberOfK(data1,4));
+        System.out.println(getNumberOfK(data2,3));
+
+        // 特殊输入测试：null、输入的数组只有1个数字
+        System.out.println(getNumberOfK(null,1));
+        int[] data3 = new int[]{1};
+        System.out.println(getNumberOfK(data3,1));
     }
 
 }

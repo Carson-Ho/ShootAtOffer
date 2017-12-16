@@ -10,68 +10,50 @@ import java.util.Queue;
 public class Exam_55 {
 
     /**
-     * 测试用例
-     */
-    public static void main(String[] args){
-
-        // 功能测试
-        TreeNode<Integer> root = new TreeNode<>(1);
-        root.leftNode = new TreeNode<>(2);
-        root.leftNode.leftNode = new TreeNode<>(4);
-        root.leftNode.rightNode = new TreeNode<>(5);
-        root.leftNode.rightNode.leftNode = new TreeNode<>(7);
-        root.rightNode = new TreeNode<>(3);
-        root.rightNode.rightNode = new TreeNode<>(6);
-
-        System.out.println(treeDepth(root));
-        System.out.println(treeDepth2(root));
-
-        // 特殊输入测试：头节点为空
-        System.out.println(treeDepth(null));
-        System.out.println(treeDepth2(null));
-    }
-
-
-    /**
      * 设置结点结构
      */
-    public static class TreeNode<T> {
-        T val; // 二叉树的结点数据
-        TreeNode<T> leftNode; // 二叉树的左子树（左孩子）
-        TreeNode<T> rightNode; // 二叉树的右子树（右孩子）
+    public static class TreeNode {
+        int val; // 二叉树的结点数据
+        TreeNode left; // 二叉树的左子树（左孩子）
+        TreeNode right; // 二叉树的右子树（右孩子）
 
-        public TreeNode(T data) {
+        public TreeNode(int data) {
             this.val = data;
-            this.leftNode = null;
-            this.rightNode = null;
+            this.left = null;
+            this.right = null;
         }
     }
 
     /**
-     * 递归实现方式
+     * 解题思路1
+     * 原理 = 根据二叉树的形状判断
+     * 实现方式 = 递归
      */
-    public static int treeDepth(TreeNode<Integer> root){
+    public static int treeDepth(TreeNode root){
+
         // 检查输入数据的合法性
         if(root == null)
             return 0;
+
         // 采用递归获取左、右子树的深度
-        int left = treeDepth(root.leftNode);
-        int right = treeDepth(root.rightNode);
+        int left = treeDepth(root.left);
+        int right = treeDepth(root.right);
 
         return left > right? (left+1) : (right+1);
     }
 
     /**
-     * 非递归实现方式（层序遍历）
-     * 主要采用 队列实现
+     * 解题思路2
+     * 原理 = 层序遍历
+     * 实现方式 = 队列
      */
-    public static int treeDepth2(TreeNode<Integer> root){
+    public static int treeDepth2(TreeNode root){
 
         // 判断输入数据的合法性
         if(root==null)
             return 0;
 
-        Queue<TreeNode<Integer>> q=new LinkedList<>();// 创建队列
+        Queue<TreeNode> q=new LinkedList<>();// 创建队列
         int depth = 0; // 用于记录深度
 
         // 步骤2：入队当前结点
@@ -87,13 +69,36 @@ public class Exam_55 {
                 root = q.poll();
 
                 // 若出队元素有左孩子，则入队其左孩子
-                if(root.leftNode!=null) q.add(root.leftNode);
+                if(root.left!=null) q.add(root.left);
                 // 若出队元素有右孩子，则入队其右孩子
-                if(root.rightNode!=null) q.add(root.rightNode);
+                if(root.right!=null) q.add(root.right);
             }
+
             depth++;
         }
         return depth;
 
+    }
+
+    /**
+     * 测试用例
+     */
+    public static void main(String[] args){
+
+        // 功能测试
+        TreeNode root = new TreeNode(1);
+        root.left = new TreeNode(2);
+        root.left.left = new TreeNode(4);
+        root.left.right = new TreeNode(5);
+        root.left.right.left = new TreeNode(7);
+        root.right = new TreeNode(3);
+        root.right.right = new TreeNode(6);
+
+        System.out.println(treeDepth(root));
+        System.out.println(treeDepth2(root));
+
+        // 特殊输入测试：头节点为空
+        System.out.println(treeDepth(null));
+        System.out.println(treeDepth2(null));
     }
 }
