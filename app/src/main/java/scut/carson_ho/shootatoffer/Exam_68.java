@@ -11,6 +11,101 @@ import java.util.List;
 public class Exam_68 {
 
     /**
+     * 辅助类结构：树的节点结构
+     */
+    public static class TreeNode {
+        int val; // 二叉树的结点数据
+        List<TreeNode> children = new LinkedList<>(); // 保存路径
+
+        public TreeNode(int data) {
+            this.val = data;
+        }
+    }
+
+    /**
+     * 解题算法
+     * @param root 树的根结点
+     * @param p1 结点1
+     * @param p2 结点2
+     * @return 公共结点，没有返回null
+     */
+    public static TreeNode getLastCommonParent(TreeNode root, TreeNode p1, TreeNode p2) {
+        // 判断输入节点的合法性
+        if (root == null || p1 == null || p2 == null) {
+            System.out.println("输入的节点存在空节点");
+            return null;
+        }
+
+        // 1. 创建2个链表，用于保存 从根节点到输入2个节点的路径
+        List<TreeNode> path1 = new LinkedList<>();
+        List<TreeNode> path2 = new LinkedList<>();
+
+        // 2. 求出从根节点到输入2个节点的路径 & 保存到链表中
+        getNodePath(root, p1, path1);
+        getNodePath(root, p2, path2);
+
+        // 3. 寻找2个链表中的最后1个公共节点
+        return getLastCommonNode(path1, path2);
+    }
+
+    /**
+     * 辅助方法1：求出 从根节点到输入2个节点的路径
+     *
+     * @param root   根结点
+     * @param target 目标结点
+     * @param path   从根结点到目标结点的路径（保存位置）
+     */
+    public static void getNodePath(TreeNode root, TreeNode target, List<TreeNode> path) {
+        if (root == null) {
+            return;
+        }
+
+        // 添加当前结点
+        path.add(root);
+
+        List<TreeNode> children = root.children;
+
+        // 处理子结点
+        for (TreeNode node : children) {
+
+            if (node == target) {
+                path.add(node);
+                return;
+            } else {
+                getNodePath(node, target, path);
+            }
+        }
+        // 返回父节点前，在路径上删除当前节点
+        // 因为此节点已经走不下去到达目标节点，所以需要继续找下1个路径
+        path.remove(path.size() - 1);
+    }
+
+
+    /**
+     * 辅助算法2：寻找2个链表中的最后1个公共节点
+     * 原理：同时遍历 & 比较 2个链表的节点
+     * @param p1 路径1
+     * @param p2 路径2
+     * @return 共同的结点，没有返回null
+     */
+
+    public static TreeNode getLastCommonNode(List<TreeNode> p1, List<TreeNode> p2) {
+        Iterator<TreeNode> ite1 = p1.iterator();
+        Iterator<TreeNode> ite2 = p2.iterator();
+        TreeNode last = null;
+
+        while (ite1.hasNext() && ite2.hasNext()) {
+            TreeNode tmp = ite1.next();
+            if (tmp == ite2.next()) {
+                last = tmp;
+            }
+        }
+
+        return last;
+
+    }
+
+    /**
      * 测试用例
      */
     public static void main(String[] args){
@@ -83,102 +178,6 @@ public class Exam_68 {
         // 特殊输入测试：树的指针 = 空指针null
         System.out.print("特殊输入测试：树的指针 = 空指针null:");
         System.out.println(getLastCommonParent(null, n4, n5));
-
-    }
-
-
-    /**
-     * 解题算法
-     * @param root 树的根结点
-     * @param p1 结点1
-     * @param p2 结点2
-     * @return 公共结点，没有返回null
-     */
-    public static TreeNode getLastCommonParent(TreeNode root, TreeNode p1, TreeNode p2) {
-        // 判断输入节点的合法性
-        if (root == null || p1 == null || p2 == null) {
-            System.out.println("输入的节点存在空节点");
-            return null;
-        }
-
-        // 1. 创建2个链表，用于保存 从根节点到输入2个节点的路径
-        List<TreeNode> path1 = new LinkedList<>();
-        List<TreeNode> path2 = new LinkedList<>();
-
-        // 2. 求出从根节点到输入2个节点的路径 & 保存到链表中
-        getNodePath(root, p1, path1);
-        getNodePath(root, p2, path2);
-
-        // 3. 寻找2个链表中的最后1个公共节点
-        return getLastCommonNode(path1, path2);
-    }
-
-    /**
-     * 辅助类结构：树的节点结构
-     */
-    public static class TreeNode {
-        int val; // 二叉树的结点数据
-        List<TreeNode> children = new LinkedList<>(); // 保存路径
-
-        public TreeNode(int data) {
-            this.val = data;
-        }
-    }
-
-    /**
-     * 辅助方法1：从根节点到输入2个节点的路径
-     *
-     * @param root   根结点
-     * @param target 目标结点
-     * @param path   从根结点到目标结点的路径（保存位置）
-     */
-    public static void getNodePath(TreeNode root, TreeNode target, List<TreeNode> path) {
-        if (root == null) {
-            return;
-        }
-
-        // 添加当前结点
-        path.add(root);
-
-        List<TreeNode> children = root.children;
-
-        // 处理子结点
-        for (TreeNode node : children) {
-
-            if (node == target) {
-                path.add(node);
-                return;
-            } else {
-                getNodePath(node, target, path);
-            }
-        }
-        // 返回父节点前，在路径上删除当前节点
-        // 因为此节点已经走不下去到达目标节点，所以需要继续找下1个路径
-        path.remove(path.size() - 1);
-    }
-
-
-    /**
-     * 辅助算法2：寻找2个链表中的最后1个公共节点
-     *
-     * @param p1 路径1
-     * @param p2 路径2
-     * @return 共同的结点，没有返回null
-     */
-
-    public static TreeNode getLastCommonNode(List<TreeNode> p1, List<TreeNode> p2) {
-        Iterator<TreeNode> ite1 = p1.iterator();
-        Iterator<TreeNode> ite2 = p2.iterator();
-        TreeNode last = null;
-
-        while (ite1.hasNext() && ite2.hasNext()) {
-            TreeNode tmp = ite1.next();
-            if (tmp == ite2.next()) {
-                last = tmp;
-            }
-        }
-
-        return last;
 
     }
 
