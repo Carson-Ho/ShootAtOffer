@@ -9,6 +9,49 @@ import java.util.Arrays;
 public class Exam_61 {
 
     /**
+     * 解题算法
+     */
+    public static boolean isContinuous(int[] numbers) {
+
+        // 判断输入数据的合法性
+        if (numbers == null || numbers.length != 5) {
+            return false;
+        }
+
+        // 1. 对元素进行排序
+        Arrays.sort(numbers);
+
+        int numberOfZero = 0; // 代表数组中0的个数
+        int numberOfGap = 0;// 代表数组中数字间的空缺个数
+
+        // 2. 统计数组中0的个数
+        for (int i = 0; i < numbers.length && numbers[i] == 0; i++) {
+            numberOfZero++;
+        }
+
+        // 3. 统计数组中空缺总数
+        int small = numberOfZero;
+        int big = small + 1;
+
+        while (big < numbers.length) {
+            // 若2个数相同，即存在对子，则不可能是顺子
+            if (numbers[small] == numbers[big] && numbers[small] != 0 ) {
+                return false;
+            }
+
+            // 计算空缺总数
+            numberOfGap += (numbers[big] - numbers[small] - 1);
+            small = big;
+            big++;
+        }
+
+        // 比较 数组中空缺总数 与 0的个数
+        // 若 空缺总数 > 0的个数，则该5个数字不连续
+        // 若 空缺总数 < 0的个数，则该5个数字连续
+        return numberOfGap <= numberOfZero;
+    }
+
+    /**
      * 测试用例
      */
     public static void main(String[] args) {
@@ -34,52 +77,5 @@ public class Exam_61 {
         System.out.println("特殊输入测试");
         System.out.println(isContinuous(null));
 
-    }
-
-    /**
-     * 解题算法
-     */
-    public static boolean isContinuous(int[] numbers) {
-        // 判断输入数据的合法性
-        if (numbers == null || numbers.length != 5) {
-            return false;
-        }
-
-        // 1. 对元素进行排序
-        Arrays.sort(numbers);
-
-        int numberOfZero = 0; // 代表数组中0的个数
-        int numberOfGap = 0;// 代表数组中数字间的空缺个数
-
-        // 2. 统计数组中0的个数
-        for (int i = 0; i < numbers.length && numbers[i] == 0; i++) {
-            numberOfZero++;
-        }
-
-        // 一副牌中不可能有2个以上的王，即不可能有2个0
-        if(numberOfZero >=  2) {
-            return false;
-        }
-
-        // 3. 统计数组中空缺总数
-        int small = numberOfZero;
-        int big = small + 1;
-
-        while (big < numbers.length) {
-            // 若2个数相同，即存在对子，则不可能是顺子
-            if (numbers[small] == numbers[big]) {
-                return false;
-            }
-
-            // 计算空缺总数
-            numberOfGap += (numbers[big] - numbers[small] - 1);
-            small = big;
-            big++;
-        }
-
-        // 比较 数组中空缺总数 与 0的个数
-        // 若 空缺总数 > 0的个数，则该5个数字不连续
-        // 若 空缺总数 < 0的个数，则该5个数字连续
-        return numberOfGap <= numberOfZero;
     }
 }

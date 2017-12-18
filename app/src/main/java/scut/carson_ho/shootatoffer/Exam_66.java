@@ -7,21 +7,6 @@ package scut.carson_ho.shootatoffer;
 public class Exam_66 {
 
     /**
-     * 测试用例
-     */
-    public static void main(String[] args){
-        // 功能测试：
-        int[] data = new int[]{1,2,3,4,5};
-        int[] result = multiply(data);
-        for( int i=0;i<result.length;i++){
-            System.out.print(result[i]);
-            System.out.print("  ");
-        }
-
-
-    }
-
-    /**
      * 解题算法
      */
     public static int[] multiply(int[] data) {
@@ -52,5 +37,18 @@ public class Exam_66 {
         }
 
         return result;
+    }
+
+    /**
+     * 测试用例
+     */
+    public static void main(String[] args){
+        // 功能测试：
+        int[] data = new int[]{1,2,3,4,5};
+        int[] result = multiply(data);
+        for( int i=0;i<result.length;i++){
+            System.out.print(result[i]);
+            System.out.print("  ");
+        }
     }
 }

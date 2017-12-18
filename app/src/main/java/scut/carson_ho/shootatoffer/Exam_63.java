@@ -7,6 +7,36 @@ package scut.carson_ho.shootatoffer;
 public class Exam_63 {
 
     /**
+     * 解题算法
+     */
+
+    public static int maxDiff(int[] data){
+
+        // 判断输入数据的合法性
+        if(data==null||data.length<2)
+            return 0;
+
+        int min = data[0]; // 存储遍历数组过程中，遍历过数字的最小值min
+        int maxDiff = data[1] - min; // diff（i） = 当卖出价为 数组中第i个数字时 可能获得的最大利润
+
+        if(data[1]<min)
+            min = data[1];
+
+        // 遍历数组
+        for( int i=2; i<data.length; i++ ){
+
+            // 遍历过程中，记录遍历过数字的最小值min、将该数字 与 之前记录的（i-1）个数字中的最小值min 作减法
+            // 即 可求出股票的最高利润
+            if(data[i] - min > maxDiff)
+                maxDiff = data[i]-min;
+
+            if( data[i]<min )
+                min = data[i];
+        }
+        return maxDiff;
+    }
+
+    /**
      * 测试用例
      */
     public static void main(String[] args){
@@ -20,36 +50,6 @@ public class Exam_63 {
 
         // 特殊输入测试
         System.out.println(maxDiff(null));
-    }
-
-    /**
-     * 解题算法
-     */
-
-    public static int maxDiff(int[] data){
-
-        // 判断输入数据的合法性
-        if(data==null||data.length<2)
-            return 0;
-
-
-        int min = data[0]; // 存储遍历数组过程中，遍历过数字的最小值min
-        int maxDiff = data[1] - min; // diff（i） = 当卖出价为 数组中第i个数字时 可能获得的最大利润
-
-        if(data[1]<min)
-            min = data[1];
-
-        // 遍历数组
-        for(int i=2;i<data.length;i++){
-            // 遍历过程中，记录遍历过数字的最小值min、将该数字 与 之前记录的（i-1）个数字中的最小值min 作减法
-            // 即 可求出股票的最高利润
-            if(data[i] - min > maxDiff)
-                maxDiff = data[i]-min;
-
-            if(data[i]<min)
-                min = data[i];
-        }
-        return maxDiff;
     }
 
 }

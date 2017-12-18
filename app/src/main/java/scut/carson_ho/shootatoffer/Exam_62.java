@@ -10,20 +10,10 @@ import java.util.List;
 public class Exam_62 {
 
     /**
-     * 测试用例
-     */
-
-    public static void main(String[] args) {
-
-        System.out.println(lastRemaining(5, 3));
-        System.out.println(lastRemaining2(5, 3));
-    }
-
-
-    /**
      * 解题算法1：环形链表
      */
     public static int lastRemaining(int n, int m) {
+
         // 判断输入数据的合法性
         if (n < 1 || m < 1) {
             return -1;
@@ -71,5 +61,15 @@ public class Exam_62 {
         }
 
         return last;
+    }
+
+    /**
+     * 测试用例
+     */
+
+    public static void main(String[] args) {
+
+        System.out.println(lastRemaining(5, 3));
+        System.out.println(lastRemaining2(5, 3));
     }
 }

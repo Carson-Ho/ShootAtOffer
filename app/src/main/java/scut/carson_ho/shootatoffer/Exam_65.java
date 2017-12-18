@@ -6,17 +6,6 @@ package scut.carson_ho.shootatoffer;
 
 public class Exam_65 {
 
-
-    /**
-     * 测试用例
-     */
-    public static void main(String[] args){
-        // 功能测试：5+17 = 22
-        System.out.println(add(5,17));
-
-    }
-
-
     /**
      * 解题算法
      */
@@ -40,5 +29,14 @@ public class Exam_65 {
         // 3. 将步骤2、3的结果相加，原理 同步骤2、3，直到不产生进位为止
 
         return x;
+    }
+
+    /**
+     * 测试用例
+     */
+    public static void main(String[] args){
+        // 功能测试：5+17 = 22
+        System.out.println(add(5,17));
+
     }
 }
