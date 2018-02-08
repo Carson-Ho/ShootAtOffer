@@ -5,7 +5,9 @@ package scut.carson_ho.shootatoffer;
  */
 
 public class Exam_1 {
-
+    private int tintl;
+    private int tint2;
+    private int tint3;
     /**
      * 测试用例
      */
